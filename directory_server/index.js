@@ -21,6 +21,10 @@ function fail(response, code, message) {
 function ok(response, message) {
   response.writeHead(200, {"Content-Type": "text/plain",
                             "Content-Length": message.length,
+                           "Access-Control-Allow-Origin": "*",
+                           "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
+                           "Access-Control-Allow-Headers": "Content-Type"
+
                           });
   response.write(message);
    
