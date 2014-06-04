@@ -23,7 +23,7 @@ function ok(response, message) {
                            "Content-Length": message.length
                           });
   response.write(message);
-   
+  response.end();
 }
 
 function putPing(uuid, remoteAddress, payload) {
