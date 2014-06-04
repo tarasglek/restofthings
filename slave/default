@@ -1,0 +1,23 @@
+
+# nginx config
+# Act as a CORS proxy for the given HTTPS server(s)
+#
+server {
+  # Make sure you specify all the methods and Headers 
+  # you send with any request!
+  more_set_headers 'Access-Control-Allow-Origin: *';
+  more_set_headers 'Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE';
+  more_set_headers 'Access-Control-Allow-Credentials: true';
+  more_set_headers 'Access-Control-Allow-Headers: Origin,Content-Type,Accept';
+
+  location /  {
+    # Handle a CORS preflight OPTIONS request 
+    # without passing it through to the proxied server 
+    if ($request_method = OPTIONS ) {
+      add_header Content-Length 0;
+      add_header Content-Type text/plain;
+      return 204;
+    }
+    proxy_pass http://localhost:8000/;
+  }
+}
