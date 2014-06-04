@@ -20,11 +20,7 @@ function fail(response, code, message) {
 
 function ok(response, message) {
   response.writeHead(200, {"Content-Type": "text/plain",
-                            "Content-Length": message.length,
-                           "Access-Control-Allow-Origin": "*",
-                           "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
-                           "Access-Control-Allow-Headers": "Content-Type"
-
+                           "Content-Length": message.length
                           });
   response.write(message);
    
@@ -44,7 +40,7 @@ function putPing(uuid, remoteAddress, payload) {
 
 }
 
-/** put json to /ping/stable-uuid 
+/** put json to /thing/stable-uuid 
  {'uuid':x, 'localurl':y, 'tags':["tag1", ..], 'description':"raspberry pi"}
  repeat calls here should just PUT an empty body...Server will 404 if body not already present
 */
@@ -67,6 +63,10 @@ function handlePing(uuid, request, response) {
 }
 
 function handleGet(request, response) {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader("Access-Control-Allow-Methods", "GET,POST");
+  response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
   var pathname = url.parse(request.url).pathname;
   var remoteAddress = request.connection.remoteAddress;
   var network = things[remoteAddress];
