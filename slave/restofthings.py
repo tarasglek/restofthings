@@ -11,12 +11,22 @@ def getExternalIP():
     sock.close()
     return ip
 
+def main():
+	while True:
+		try:
+			UUID=os.popen("cat /sys/class/net/*/address |sha1sum").read().split(" ")[0];
+			str = json.dumps({'uuid':UUID, 'localURL':("http://"+getExternalIP())});
+			print str
 
-UUID=os.popen("cat /sys/class/net/*/address |sha1sum").read().split(" ")[0];
-str = json.dumps({'uuid':UUID, 'localURL':("http://"+getExternalIP())});
-print str
+			connection =  httplib.HTTPConnection('restofthings.glek.net:8080')
+			connection.request('PUT', '/thing/'+UUID, str)
+			result = connection.getresponse()
+			print result.read()
+			break
+		except:
+			print "Failed to ping, gonna retry"
+			os.system("sleep 60");
+			
+	
 
-connection =  httplib.HTTPConnection('restofthings.glek.net:8080')
-connection.request('PUT', '/thing/'+UUID, str)
-result = connection.getresponse()
-print result.read()
+main()
