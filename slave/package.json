@@ -1,0 +1,9 @@
+{
+  "name": "slave-server",
+  "description": "Handles device configuration",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "4.x",
+    "raw-body": "1.x"
+  }
+}

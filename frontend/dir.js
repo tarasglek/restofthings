@@ -5,7 +5,10 @@ $.ajax({"url":baseurl + "/ls"}).done(function (data) {
     var url = baseurl + "/thing/" + thingid;
    // alert(url);
     $.ajax({"url":url}).done(function (data) {
-      alert(data);
+      var entry = JSON.parse(data);
+      $.ajax({"url":entry.localURL}).done(function (data) {
+        alert(data);
+      })
     });
   });
 });
