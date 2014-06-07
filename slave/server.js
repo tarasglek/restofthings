@@ -62,6 +62,10 @@ app.delete(/^\/tags\/([A-z:.-]+|\*)$/, function(req, res, next) {
   });
 })
 
+app.get("/features", function (req, res) {
+  res.json(config.features);
+})
+
 var server = app.listen(config.port, function() {
     console.log('Listening on port %d', server.address().port);
 });
