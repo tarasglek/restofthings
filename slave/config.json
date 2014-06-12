@@ -1,4 +1,5 @@
 {
+    "directoryServer": "http://oldvps.glek.net:8080",
     "tagFile":"/tmp/tags.json",
     "port":3000,
     "features":{
